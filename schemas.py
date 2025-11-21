@@ -11,8 +11,8 @@ Model name is converted to lowercase for the collection name:
 - BlogPost -> "blogs" collection
 """
 
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, Field, HttpUrl
+from typing import Optional, List
 
 # Example schemas (replace with your own):
 
@@ -37,6 +37,19 @@ class Product(BaseModel):
     price: float = Field(..., ge=0, description="Price in dollars")
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
+
+# Portfolio Project schema for NizarDev
+class Project(BaseModel):
+    """
+    Portfolio projects schema
+    Collection name: "project"
+    """
+    title: str = Field(..., description="Project title")
+    description: str = Field(..., description="Short description of the project")
+    tags: Optional[List[str]] = Field(default_factory=list, description="Tech stack or tags")
+    image_url: Optional[HttpUrl] = Field(None, description="Cover image URL")
+    live_url: Optional[HttpUrl] = Field(None, description="Live demo URL")
+    source_url: Optional[HttpUrl] = Field(None, description="Source code URL")
 
 # Add your own schemas here:
 # --------------------------------------------------
